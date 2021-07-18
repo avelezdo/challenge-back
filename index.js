@@ -8,6 +8,7 @@ app.use(logger);
 app.use(cors());
 
 app.get('/', (request, response) => {
+	console.log('/');
 	response.json();
 });
 
@@ -36,6 +37,12 @@ app.post('/api/favorites', (request, response) => {
 	}
 	favorites = _favorites;
 	response.status(201).json();
+});
+
+app.use((request, response) => {
+	response.status(404).json({
+		error: 'Resource not found',
+	});
 });
 
 const PORT = 3000;
