@@ -8,8 +8,7 @@ app.use(logger);
 app.use(cors());
 
 app.get('/', (request, response) => {
-	console.log('/');
-	response.json();
+	response.send('<h3>Services Up & Running');
 });
 
 app.get('/api/favorites', (_, response) => {
