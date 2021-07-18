@@ -45,7 +45,7 @@ app.use((request, response) => {
 	});
 });
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; //process.env.PORT necesario para el despliegue en Heroku
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
