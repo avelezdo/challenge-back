@@ -23,7 +23,18 @@ app.get('/api/favorites/:id', (request, response) => {
 
 app.delete('/api/favorites/:id', (request, response) => {
 	const id = request.params.id; //ojo, siempre se toma el parámetro como string
+	if (!favorites.favorites.some((f) => f.id.value === id)) {
+		return response.status(400).json({
+			error: 'Favorite id not found',
+		});
+	}
+
 	favorites = favorites.favorites.filter((f) => f.id.value !== id);
+	response.status(204).json();
+});
+
+app.delete('/api/favorites', (request, response) => {
+	favorites = [];
 	response.status(204).json();
 });
 
@@ -45,6 +56,8 @@ app.use((request, response) => {
 });
 
 const PORT = process.env.PORT || 3000; //process.env.PORT necesario para el despliegue en Heroku
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
+
+module.exports = { app, server };
